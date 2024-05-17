@@ -3,7 +3,6 @@
 <div id="products">
   <% @products.each do |product| %>
 
-    <a href="#"  class="shadow-lg rounded">
       <div  class="flex w-[250px] object-cover h-[250px]">
         <%= render product.image.blob %>
       </div>
@@ -14,9 +13,18 @@
         </h1>
 
         <h1 class="font-bold ml-5">
+        <%  if product.quantity <= 10 %>
+          <h1 class="text-red-500 bg-black">
+            <%= product.quantity %> units
+          </h1>
+        <% end %>
+
+        <%  if product.quantity > 10 %>
           <%= product.quantity %> units
+        <% end %>
         </h1>
+
+        <%= button_to "Delete", product, method: :delete, class: 'bg-red-500' %>
       </div>
-    </a>
   <% end %>
 </div>

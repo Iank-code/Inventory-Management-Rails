@@ -1,13 +1,28 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :checkIfIsBelowLimit
 
   # GET /products or /products.json
   def index
     @products = Product.all
+    @products
   end
+
+  # Mocking User Purchase to decrease quantity of product
+  def user_purchase(productId, quantity)
+    @product = Product.find(params[:id])
+    @product.quantity -= quantity
+
+    @product.save
+
+  end
+
 
   # GET /products/1 or /products/1.json
   def show
+    user_purchase(1,3)
+    @product = Product.find(params[:id])
+    @product
   end
 
   # GET /products/new
@@ -55,6 +70,10 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  # Products here have quantity less or equal to 10
+  def management
   end
 
   private

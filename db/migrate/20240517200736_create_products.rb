@@ -5,6 +5,7 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.text :description
       t.integer :quantity, :default =>  0
       t.integer :price
+      t.boolean :isBelowLimit, :default => false, :null => true
 
       t.timestamps
     end
