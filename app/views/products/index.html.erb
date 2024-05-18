@@ -1,18 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<div id="products">
+
+<div id="products" class="flex justify-center px-5">
   <% @products.each do |product| %>
+    <div class="flex flex-col mx-[1em] gap-[1em] shadow-md justify-evenly items-start w-[3em]">
 
-      <div  class="flex w-[100px] object-cover h-[100px]">
-        <%= render product.image.blob %>
-      </div>
+      <%= image_tag(product.image.blob, alt: "image.png", width: "200", height: "200") %>
 
-      <div class="flex flex-col gap-3 items-start">
-        <h1 class="font-bold">
-          <%= product.name %>
-        </h1>
+      <h1 class="font-bold">
+        <%= product.name %>
+      </h1>
 
-        <h1 class="font-bold ml-5">
+      <h1 class="font-bold ml-5">
         <%  if product.quantity <= 10 %>
           <h1 class="text-red-500">
             <%= product.quantity %> units
@@ -22,9 +21,12 @@
         <%  if product.quantity > 10 %>
           <%= product.quantity %> units
         <% end %>
-        </h1>
+      </h1>
 
+      <div class="flex gap-[1em]">
+        <%= button_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
         <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
       </div>
+    </div>
   <% end %>
 </div>

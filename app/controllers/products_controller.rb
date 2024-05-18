@@ -20,7 +20,6 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
-    user_purchase(1,3)
     @product = Product.find(params[:id])
     @product
   end
