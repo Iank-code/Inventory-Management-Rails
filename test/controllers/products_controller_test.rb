@@ -7,7 +7,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     get products_url
-    assert_response :success
+    puts products_url
+    assert_response :success, "Should navigate to products page"
+  end
+
+  test "Should get all products" do
+    product = Product.all
+    assert(product, "Gets all products")
   end
 
   test "should get new" do
