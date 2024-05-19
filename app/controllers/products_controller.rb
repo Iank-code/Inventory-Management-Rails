@@ -1,13 +1,27 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :checkIfIsBelowLimit
 
   # GET /products or /products.json
   def index
     @products = Product.all
+    @products
   end
+
+  # Mocking User Purchase to decrease quantity of product
+  def user_purchase(productId, quantity)
+    @product = Product.find(params[:id])
+    @product.quantity -= quantity
+
+    @product.save
+
+  end
+
 
   # GET /products/1 or /products/1.json
   def show
+    @product = Product.find(params[:id])
+    @product
   end
 
   # GET /products/new
@@ -57,6 +71,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  # Products here have quantity less or equal to 10
+  def management
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -65,6 +83,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :quantity, :price)
+      params.require(:product).permit(:name, :description, :quantity, :price, :image)
     end
 end

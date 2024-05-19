@@ -1,10 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @product %>
+<div class="flex flex-col mx-[1em] gap-[2em] shadow-md justify-evenly items-start w-[3em]">
 
-<div>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= link_to "Back to products", products_path %>
+    <%= image_tag(@product.image.blob, alt: "image.png", width: "200", height: "200") %>
 
-  <%= button_to "Destroy this product", @product, method: :delete %>
-</div>
+    <h1 class="font-bold">
+      Name: <%= @product.name %>
+    </h1>
+    <h1 class="font-bold">
+      Description: <%= @product.description %>
+    </h1>
+
+    <h1 class="font-bold ml-5">
+      <%  if @product.quantity <= 10 %>
+        <h1 class="text-red-500">
+          Quantity: <%= @product.quantity %> units
+        </h1>
+      <% end %>
+        Quantity: <%= @product.quantity %> units
+    </h1>
+
+    <h1 class="font-bold">
+      Price: Ksh <%= @product.price %>
+    </h1>
+
+    <div class="flex gap-[1em] items-center">
+      <%= link_to "Go Back", products_path,class: 'font-bold bg-blue-500 text-black py-1 px-2 rounded-md' %>
+      <%= link_to "Edit", edit_product_path(@product), class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
+      <%= button_to "Delete", @product, method: :delete, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
+    </div>
+  </div>

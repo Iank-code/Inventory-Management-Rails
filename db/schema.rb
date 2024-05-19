@@ -42,8 +42,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_200736) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "quantity"
+    t.integer "quantity", default: 0
     t.integer "price"
+    t.boolean "isBelowLimit", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

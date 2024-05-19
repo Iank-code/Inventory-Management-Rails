@@ -32,6 +32,11 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :Upload_file, style: "display: block" %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.submit "Update", style: "cursor: pointer; border: none; background-color: blue; color: white; border-radius: 6px; outline: none; padding: 4px 10px; margin-top: 10px" %>
   </div>
 <% end %>
