@@ -1,0 +1,6 @@
+<div id="products" class="flex justify-center px-5">
+  <%= turbo_frame_tag "products" do %>
+    <%= turbo_stream_from 'products' %>
+    <%= render partial: 'product', collection: @products %>
+  <% end %>
+</div>
