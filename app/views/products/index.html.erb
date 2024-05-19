@@ -1,32 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
-
 <div id="products" class="flex justify-center px-5">
-  <% @products.each do |product| %>
-    <div class="flex flex-col mx-[1em] gap-[1em] shadow-md justify-evenly items-start w-[3em]">
-
-      <%= image_tag(product.image.blob, alt: "image.png", width: "240px", height: "240px") %>
-
-      <h1 class="font-bold">
-        <%= product.name %>
-      </h1>
-
-      <h1 class="font-bold ml-5">
-        <%  if product.quantity <= 10 %>
-          <h1 class="text-red-500">
-            <%= product.quantity %> units
-          </h1>
-        <% end %>
-
-        <%  if product.quantity > 10 %>
-          <%= product.quantity %> units
-        <% end %>
-      </h1>
-
-      <div class="flex gap-[1em]">
-        <%= button_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
-        <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
-      </div>
-    </div>
+  <%= turbo_frame_tag "products" do %>
+    <%= turbo_stream_from 'products' %>
+    <%= render partial: 'product', collection: @products %>
   <% end %>
 </div>
