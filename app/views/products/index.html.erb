@@ -5,7 +5,7 @@
   <% @products.each do |product| %>
     <div class="flex flex-col mx-[1em] gap-[1em] shadow-md justify-evenly items-start w-[3em]">
 
-      <%= image_tag(product.image.blob, alt: "image.png", width: "200", height: "200") %>
+      <%= image_tag(product.image.blob, alt: "image.png", width: "240px", height: "240px") %>
 
       <h1 class="font-bold">
         <%= product.name %>
