@@ -1,42 +1,44 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<%= turbo_frame_tag dom_id(product, :form) do %>
+  <%= form_with(model: product) do |form| %>
+    <% if product.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% product.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :description, style: "display: block" %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div>
+      <%= form.label :quantity, style: "display: block" %>
+      <%= form.number_field :quantity %>
+    </div>
+
+    <div>
+      <%= form.label :price, style: "display: block" %>
+      <%= form.number_field :price %>
+    </div>
+
+    <div>
+      <%= form.label :Upload_file, style: "display: block" %>
+      <%= form.file_field :image %>
+    </div>
+
+    <div style="cursor: pointer; border: none; background-color: blue; color: white; border-radius: 6px; outline: none; padding: 5px 7px; margin-top: 10px">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :quantity, style: "display: block" %>
-    <%= form.number_field :quantity %>
-  </div>
-
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.number_field :price %>
-  </div>
-
-  <div>
-    <%= form.label :Upload_file, style: "display: block" %>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.submit "Update", style: "cursor: pointer; border: none; background-color: blue; color: white; border-radius: 6px; outline: none; padding: 4px 10px; margin-top: 10px" %>
-  </div>
 <% end %>

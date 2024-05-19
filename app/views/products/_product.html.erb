@@ -1,22 +1,26 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
+<%= turbo_frame_tag dom_id(product) do %>
+  <div id="<%= dom_id(product) %>" class="flex flex-col mx-4 gap-4 shadow-md justify-evenly items-start w-64 border rounded-lg p-4 bg-white">
+    <%= image_tag(product.image.blob, alt: "image.png", class: "w-full h-64 object-cover rounded-t-md") %>
 
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
-  </p>
+    <h1 class="font-bold text-lg">
+      <%= product.name %>
+    </h1>
 
-  <p>
-    <strong>Quantity:</strong>
-    <%= product.quantity %>
-  </p>
+    <div class="ml-5">
+      <% if product.quantity <= 10 %>
+        <h1 class="text-red-500 font-bold">
+          <%= product.quantity %> units
+        </h1>
+      <% else %>
+        <h1 class="font-bold">
+          <%= product.quantity %> units
+        </h1>
+      <% end %>
+    </div>
 
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
-
-</div>
+    <div class="flex gap-4 mt-4">
+      <%= button_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-white py-1 px-2 rounded-md' %>
+      <%= button_to "Delete", product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
+    </div>
+  </div>
+<% end %>
