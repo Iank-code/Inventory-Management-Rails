@@ -31,7 +31,7 @@ Ensure you have the following installed:
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/yourusername/product_management.git
+    git clone git@github.com:Iank-code/Inventory-Management-Rails.git
     cd product_management
     ```
 
@@ -44,7 +44,6 @@ Ensure you have the following installed:
 3. **Set up the database:**
 
     ```sh
-    rails db:create
     rails db:migrate
     ```
 

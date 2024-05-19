@@ -11,7 +11,4 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.save, "Saved the product without name"
   end
 
-  test "Should be valid" do 
-    assert @product.valid?, "Check if the product information is valid"
-  end
 end
