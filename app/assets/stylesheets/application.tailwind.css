@@ -6,9 +6,5 @@
 html {
   padding: 0px;
   box-sizing: border-box !important;
-}
-
-.product_image {
-  background-color: blue;
-  width: 10px !important;
+  overflow-x: hidden !important;
 }

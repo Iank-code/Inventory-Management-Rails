@@ -10,8 +10,8 @@ This is a Ruby on Rails application for managing products. It includes features 
 
 ## Requirements
 
-- Ruby 3.1.x
-- Rails 7.x
+- Ruby 3.0
+- Rails 7.1.3.3
 - SQLite3
 
 ## Getting Started
@@ -22,8 +22,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 Ensure you have the following installed:
 
-- Ruby 3.1.x
-- Rails 7.x
+- Ruby 3.0
+- Rails 7.1.3.3
 - SQLite3
 
 ### Installation
