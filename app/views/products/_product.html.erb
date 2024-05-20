@@ -1,26 +1,24 @@
-<%= turbo_frame_tag dom_id(product) do %>
-  <div id="<%= dom_id(product) %>" class="flex flex-col mx-4 gap-4 shadow-lg justify-evenly items-start w-64 border border-gray-300 rounded-lg p-4 bg-white">
-    <%= image_tag(product.image.blob, alt: "image.png", class: "w-[10px] h-[40px] object-cover rounded-t-lg") %>
+<div class="flex flex-col gap-4 shadow-lg justify-items-start items-start w-64 border border-gray-300 rounded-lg p-4 bg-white">
+  <%= image_tag(product.image.blob, alt: "image.png", class: "w-[100px] h-[100px] object-cover rounded-t-lg") %>
 
-    <h1 class="font-bold text-lg mt-4">
-      <%= product.name %>
-    </h1>
+  <h1 class="font-bold text-lg mt-4">
+    <%= product.name %>
+  </h1>
 
-    <div class="ml-5">
-      <% if product.quantity <= 10 %>
-        <h1 class="text-red-500 font-bold text-lg">
-          <%= product.quantity %> units
-        </h1>
-      <% else %>
-        <h1 class="font-bold text-lg">
-          <%= product.quantity %> units
-        </h1>
-      <% end %>
-    </div>
-
-    <div class="flex gap-4 mt-4">
-      <%= button_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700' %>
-      <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700' %>
-    </div>
+  <div class="ml-5">
+    <% if product.quantity <= 10 %>
+      <h1 class="text-red-500 font-bold text-lg">
+        <%= product.quantity %> units
+      </h1>
+    <% else %>
+      <h1 class="font-bold text-lg">
+        <%= product.quantity %> units
+      </h1>
+    <% end %>
   </div>
-<% end %>
+
+  <div class="flex gap-4 mt-2">
+    <%= link_to "View", product_path(product), class: 'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-400' %>
+    <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700' %>
+  </div>
+</div>

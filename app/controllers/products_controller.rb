@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Product.all.reverse
   end
 
   def user_purchase
@@ -15,7 +15,9 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1 or /products/1.json
-  def show; end
+  def show
+    @product = Product.find(params[:id])
+  end
 
   # GET /products/new
   def new
@@ -23,14 +25,15 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
+        format.html { redirect_to root_path, notice: "Product was successfully created." }
         format.turbo_stream
         # format.turbo_frame { render partial: 'products/product', locals: { product: @product } }
       else
@@ -59,8 +62,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy!
     respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@product) }
+      format.html { redirect_to products_path, notice: 'Product was successfully destroyed.'}
     end
   end
 

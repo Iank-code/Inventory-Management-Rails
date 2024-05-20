@@ -1,34 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
-<%= turbo_frame_tag dom_id(@product) do %>
-  <div class="flex flex-col mx-4 gap-8 shadow-md justify-evenly items-start w-64 border rounded-lg p-4 bg-white">
-    <%= image_tag(@product.image.blob, alt: "image.png", width: "200", height: "200", class: "w-full h-64 object-cover rounded-t-md") %>
+<div class="flex flex-col justify-center items-center mx-4 gap-2 shadow-md border rounded-lg p-4 bg-white">
+  <%= image_tag(@product.image.blob, alt: "image.png", width: "200", height: "200", class: "w-full h-[3vh] object-cover rounded-t-md") %>
 
-    <h1 class="font-bold">
-      Name: <%= @product.name %>
-    </h1>
-    <h1 class="font-bold">
-      Description: <%= @product.description %>
-    </h1>
+  <h1 class="font-bold">
+    Name: <%= @product.name %>
+  </h1>
+  <h1 class="font-bold">
+    Description: <%= @product.description %>
+  </h1>
 
-    <div class="font-bold ml-5">
-      <% if @product.quantity <= 10 %>
-        <h1 class="text-red-500">
-          Quantity: <%= @product.quantity %> units
-        </h1>
-      <% else %>
+  <div class="font-bold">
+    <% if @product.quantity <= 10 %>
+      <h1 class="text-red-500">
         Quantity: <%= @product.quantity %> units
-      <% end %>
-    </div>
-
-    <h1 class="font-bold">
-      Price: Ksh <%= @product.price %>
-    </h1>
-
-    <div class="flex gap-4 items-center">
-      <%= link_to "Go Back", products_path, class: 'font-bold bg-blue-500 text-black py-1 px-2 rounded-md' %>
-      <%= link_to "Edit", edit_product_path(@product), class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
-      <%= button_to "Delete", @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
-    </div>
+      </h1>
+    <% else %>
+      Quantity: <%= @product.quantity %> units
+    <% end %>
   </div>
-<% end %>
+
+  <h1 class="font-bold">
+    Price: Ksh <%= @product.price %>
+  </h1>
+
+  <div class="flex gap-4 items-center">
+    <%= link_to "Go Back", products_path, class: 'font-bold bg-blue-500 text-black py-1 px-2 rounded-md' %>
+    <%= link_to "Edit", edit_product_path(@product), class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
+    <%= button_to "Delete", @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
+  </div>
+</div>
