@@ -1,25 +1,23 @@
-<turbo-frame id="priduct_management">
-    <div id="products">
-        <% belowLimitProducts.each do | product | %>
-        <div  class="flex w-[60px] object-cover h-[60px]">
-            <%= render product.image.blob %>
+<div id="products">
+    <% belowLimitProducts.each do | product | %>
+    <div  class="flex w-[100px] object-cover h-[100px]">
+        <%= image_tag(product.image.blob, alt: "image.png", class: "w-[100px] h-[100px] object-cover rounded-t-lg") %>
+        </div>
+
+        <div class="flex flex-col gap-3 items-start">
+            <h1 class="font-bold">
+                <%= product.name %>
+            </h1>
+
+            <h1 class="font-bold text-red-500">
+                <%= product.quantity %> units
+            </h1>
+
+            <div class="flex gap-[1em]">
+                <%= link_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
+                <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
             </div>
+        </div>
 
-            <div class="flex flex-col gap-3 items-start">
-                <h1 class="font-bold">
-                    <%= product.name %>
-                </h1>
-
-                <h1 class="font-bold text-red-500">
-                    <%= product.quantity %> units
-                </h1>
-
-                <div class="flex gap-[1em]">
-                    <%= button_to "View", product_url(product), method: :get, class: 'bg-blue-500 text-black py-1 px-2 rounded-md' %>
-                    <%= button_to "Delete", product, method: :delete, class: 'bg-red-500 text-white py-1 px-2 rounded-md' %>
-                </div>
-            </div>
-
-        <% end %>
-    </div>
-</turbo-frame>
+    <% end %>
+</div>
