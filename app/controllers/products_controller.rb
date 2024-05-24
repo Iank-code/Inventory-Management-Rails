@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :checkIfIsBelowLimit
+  # before_action :checkIfIsBelowLimit
 
   # GET /products or /products.json
   def index
@@ -31,10 +31,12 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+    
     respond_to do |format|
       if @product.save
-        format.html { redirect_to root_path, notice: "Product was successfully created." }
+        CheckIfProductIsBelowLimitJob.set(wait: 10.second).perform_later
         format.turbo_stream
+        format.html { redirect_to products_path, notice: "Product was successfully created." }
         # format.turbo_frame { render partial: 'products/product', locals: { product: @product } }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,10 +47,11 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    CheckIfProductIsBelowLimitJob.set(wait: 10.second).perform_later
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
         format.turbo_stream
+        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
        
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,6 +67,10 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_path, notice: 'Product was successfully destroyed.'}
     end
+  end
+
+  def management
+    @products_below_limit = CheckIfProductIsBelowLimitJob.new.display_products
   end
 
   private

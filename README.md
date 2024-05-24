@@ -47,6 +47,11 @@ Ensure you have the following installed:
     rails db:migrate
     ```
 
+4. **Precompile asset pipline**
+    ```sh
+    bundle exec rake assets:precompile
+    ```
+
 4. **Run the Rails server:**
 
     ```sh
