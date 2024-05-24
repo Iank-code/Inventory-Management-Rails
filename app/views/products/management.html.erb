@@ -1,5 +1,5 @@
 <div id="products">
-    <% belowLimitProducts.each do | product | %>
+    <% @products_below_limit.each do | product | %>
     <div  class="flex w-[100px] object-cover h-[100px]">
         <%= image_tag(product.image.blob, alt: "image.png", class: "w-[100px] h-[100px] object-cover rounded-t-lg") %>
         </div>
