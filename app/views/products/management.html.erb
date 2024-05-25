@@ -1,6 +1,6 @@
-<div id="products">
+<div id="products" class="flex gap-5">
     <% @products_below_limit.each do | product | %>
-    <div  class="flex w-[100px] object-cover h-[100px]">
+    <div  class="flex flex-col gap-6 w-[100px] object-cover h-[100px]">
         <%= image_tag(product.image.blob, alt: "image.png", class: "w-[100px] h-[100px] object-cover rounded-t-lg") %>
         </div>
 

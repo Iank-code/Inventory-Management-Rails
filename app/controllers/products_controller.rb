@@ -1,17 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  # before_action :checkIfIsBelowLimit
+  before_action :check_stock_inventory
 
   # GET /products or /products.json
   def index
     @products = Product.all.reverse
-  end
-
-  def user_purchase
-    @product = Product.find(params[:id])
-    @product.quantity -= params[:quantity].to_i
-    @product.save
-    redirect_to products_path, notice: "Purchase successful!"
   end
 
   # GET /products/1 or /products/1.json
@@ -34,10 +27,8 @@ class ProductsController < ApplicationController
     
     respond_to do |format|
       if @product.save
-        CheckIfProductIsBelowLimitJob.set(wait: 10.second).perform_later
         format.turbo_stream
-        format.html { redirect_to products_path, notice: "Product was successfully created." }
-        # format.turbo_frame { render partial: 'products/product', locals: { product: @product } }
+        format.html { redirect_to root_path, notice: "Product was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@product, partial: 'products/form', locals: { product: @product }) }
@@ -47,7 +38,6 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-    CheckIfProductIsBelowLimitJob.set(wait: 10.second).perform_later
     respond_to do |format|
       if @product.update(product_params)
         format.turbo_stream
@@ -65,12 +55,17 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy!
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to products_path, notice: 'Product was successfully destroyed.'}
     end
   end
 
   def management
     @products_below_limit = CheckIfProductIsBelowLimitJob.new.display_products
+  end
+
+  def check_stock_inventory
+    CheckIfProductIsBelowLimitJob.perform_now
   end
 
   private

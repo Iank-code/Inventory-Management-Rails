@@ -6,6 +6,8 @@ class CheckIfProductIsBelowLimitJob < ApplicationJob
     products.each do |product|
       if product.quantity <= 10
         notify_user(product)
+      else
+        notify_user(product, false)
       end
     end
   end
@@ -16,8 +18,8 @@ class CheckIfProductIsBelowLimitJob < ApplicationJob
 
   private
 
-  def notify_user(product)
-    product.isBelowLimit = true
+  def notify_user(product, bool=true)
+    product.isBelowLimit = bool
     product.save
   end
 end
