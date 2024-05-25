@@ -1,4 +1,4 @@
-  <%= turbo_stream_from 'products' %>
-  <div id="products" class="grid grid-cols-4 gap-[10px] px-5">
-    <%= render partial: 'product', collection: @products %>
-  </div>
+<%= turbo_stream_from 'products' %>
+<div id="products" class="flex gap-[10px] h-max px-5">
+  <%= render partial: 'product', collection: @products %>
+</div>

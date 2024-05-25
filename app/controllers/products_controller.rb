@@ -1,17 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :checkIfIsBelowLimit
+  before_action :check_stock_inventory
 
   # GET /products or /products.json
   def index
     @products = Product.all.reverse
-  end
-
-  def user_purchase
-    @product = Product.find(params[:id])
-    @product.quantity -= params[:quantity].to_i
-    @product.save
-    redirect_to products_path, notice: "Purchase successful!"
   end
 
   # GET /products/1 or /products/1.json
@@ -31,11 +24,11 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+    
     respond_to do |format|
       if @product.save
-        format.html { redirect_to root_path, notice: "Product was successfully created." }
         format.turbo_stream
-        # format.turbo_frame { render partial: 'products/product', locals: { product: @product } }
+        format.html { redirect_to root_path, notice: "Product was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@product, partial: 'products/form', locals: { product: @product }) }
@@ -47,8 +40,8 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
         format.turbo_stream
+        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
        
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,8 +55,17 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy!
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to products_path, notice: 'Product was successfully destroyed.'}
     end
+  end
+
+  def management
+    @products_below_limit = CheckIfProductIsBelowLimitJob.new.display_products
+  end
+
+  def check_stock_inventory
+    CheckIfProductIsBelowLimitJob.perform_now
   end
 
   private
